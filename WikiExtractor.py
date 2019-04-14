@@ -2569,7 +2569,7 @@ def compact(text):
                 page.append(title)
         # handle indents
         elif line[0] == ':':
-            # page.append(line.lstrip(':*#;'))
+            page.append("<dd>%s</dd>" % line.lstrip(':*#;'))
             continue
         # handle lists
         elif line[0] in '*#;:':
