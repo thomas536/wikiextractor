@@ -2408,7 +2408,7 @@ def makeInternalLink(title, label):
         if colon2 > 1 and title[colon + 1:colon2] not in options.acceptedNamespaces:
             return ''
     if options.keepLinks:
-        return '<a href="%s">%s</a>' % (quote(title.encode('utf-8')), label)
+        return u'<a href="%s">%s</a>' % (ucfirst(title), label)
     else:
         return label
 
