@@ -2479,7 +2479,11 @@ def replaceExternalLinks(text):
 def makeExternalLink(url, anchor):
     """Function applied to wikiLinks"""
     if options.keepLinks:
-        return '<a href="%s">%s</a>' % (quote(url.encode('utf-8')), anchor)
+        try:
+          return u'<a href="%s">%s</a>' % (url, anchor)
+        except UnicodeDecodeError:
+          print "url: %r anchor: %r" % (url, anchor)
+          raise
     else:
         return anchor
 
