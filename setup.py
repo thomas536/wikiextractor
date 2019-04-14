@@ -17,5 +17,5 @@ setup(
 
     license="GPL 3.0",
     keywords=['text', 'nlp'],
-    scripts=['WikiExtractor.py']
+    packages=['wikiextractor'],
 )
