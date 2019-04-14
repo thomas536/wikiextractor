@@ -2607,7 +2607,10 @@ def compact(text):
                         # emit open sections
                         items = sorted(headers.items())
                         for _, v in items:
-                            page.append(v)
+                            if options.toHTML:
+                                page.append("<h%d>%s</h%d>" % (i, title, i))
+                            else:
+                                page.append(v)
                     headers.clear()
                     # use item count for #-lines
                     listCount[i - 1] += 1
@@ -2635,7 +2638,10 @@ def compact(text):
             if options.keepSections:
                 items = sorted(headers.items())
                 for i, v in items:
-                    page.append(v)
+                    if options.toHTML:
+                        page.append("<h%d>%s</h%d>" % (i, title, i))
+                    else:
+                        page.append(v)
             headers.clear()
             page.append(line)  # first line
             emptySection = False
