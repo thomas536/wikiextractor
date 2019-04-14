@@ -722,9 +722,15 @@ class Extractor(object):
         res = ''
         cur = 0
         for m in syntaxhighlight.finditer(text):
-            res += unescape(text[cur:m.start()]) + m.group(1)
+            if options.toHTML:
+                res += text[cur:m.start()] + m.group(1)
+            else:
+                res += unescape(text[cur:m.start()]) + m.group(1)
             cur = m.end()
-        text = res + unescape(text[cur:])
+        if options.toHTML:
+            text = res + text[cur:]
+        else:
+            text = res + unescape(text[cur:])
         return text
 
 
@@ -790,7 +796,8 @@ class Extractor(object):
             text = text.replace('|-', '')
             text = text.replace('|', '')
         if options.toHTML:
-            text = cgi.escape(text)
+            #text = cgi.escape(text)
+            pass
         return text
 
 
