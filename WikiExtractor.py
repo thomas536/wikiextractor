@@ -964,7 +964,7 @@ class Extractor(object):
             # logging.debug('%*sEXPAND> %s', self.frame.depth, '', body)
             return ''
 
-        logging.debug('%*sEXPAND %s', self.frame.depth, '', body)
+        # logging.debug('%*sEXPAND %s', self.frame.depth, '', body)
         parts = splitParts(body)
         # title is the portion before the first |
         title = parts[0].strip()
@@ -982,7 +982,7 @@ class Extractor(object):
 
         if title in self.magicWords.values:
             ret = self.magicWords[title]
-            logging.debug('%*s<EXPAND %s %s', self.frame.depth, '', title, ret)
+            # logging.debug('%*s<EXPAND %s %s', self.frame.depth, '', title, ret)
             return ret
 
         # Parser functions.
@@ -1004,7 +1004,7 @@ class Extractor(object):
             parts[0] = title[colon + 1:].strip()  # side-effect (parts[0] not used later)
             # arguments after first are not evaluated
             ret = callParserFunction(funct, parts, self)
-            logging.debug('%*s<EXPAND %s %s', self.frame.depth, '', funct, ret)
+            # logging.debug('%*s<EXPAND %s %s', self.frame.depth, '', funct, ret)
             return ret
 
         title = fullyQualifiedTemplateTitle(title)
@@ -1026,10 +1026,10 @@ class Extractor(object):
             del options.templates[title]
         else:
             # The page being included could not be identified
-            logging.debug('%*s<EXPAND %s %s', self.frame.depth, '', title, '')
+            # logging.debug('%*s<EXPAND %s %s', self.frame.depth, '', title, '')
             return ''
 
-        logging.debug('%*sTEMPLATE %s: %s', self.frame.depth, '', title, template)
+        # logging.debug('%*sTEMPLATE %s: %s', self.frame.depth, '', title, template)
 
         # tplarg          = "{{{" parts "}}}"
         # parts           = [ title *( "|" part ) ]
@@ -1081,7 +1081,7 @@ class Extractor(object):
         instantiated = template.subst(params, self)
         value = self.transform(instantiated)
         self.frame = self.frame.pop()
-        logging.debug('%*s<EXPAND %s %s', self.frame.depth, '', title, value)
+        # logging.debug('%*s<EXPAND %s %s', self.frame.depth, '', title, value)
         return value
 
 
@@ -1909,7 +1909,7 @@ def callParserFunction(functionName, args, extractor):
         functionName = functionName.lower()
         if functionName == '#invoke':
             module, fun = args[0].strip(), args[1].strip()
-            logging.debug('%*s#invoke %s %s %s', extractor.frame.depth, '', module, fun, args[2:])
+            # logging.debug('%*s#invoke %s %s %s', extractor.frame.depth, '', module, fun, args[2:])
             # special handling of frame
             if len(args) == 2:
                 # find parameters in frame whose title is the one of the original
@@ -1928,7 +1928,7 @@ def callParserFunction(functionName, args, extractor):
                 params = [extractor.transform(p) for p in args[2:]] # evaluates them
                 params = extractor.templateParams(params)
             ret = sharp_invoke(module, fun, params)
-            logging.debug('%*s<#invoke %s %s %s', extractor.frame.depth, '', module, fun, ret)
+            # logging.debug('%*s<#invoke %s %s %s', extractor.frame.depth, '', module, fun, ret)
             return ret
         if functionName in parserFunctions:
             # branching functions use the extractor to selectively evaluate args
